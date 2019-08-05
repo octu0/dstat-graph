@@ -1,7 +1,24 @@
 # dstat-graph
 
 generate png chart from dstat CSV file.  
-data visualization using [go-chart](https://github.com/wcharczuk/go-chart)
+data visualization using [go-chart](https://github.com/wcharczuk/go-chart)  
+(inspired by [dstat2graph](https://github.com/sh2/dstat2graphs))
+
+## Usage
+
+output dstat csv using `dstat --output`
+
+```
+$ dstat -t --cpu --mem --disk --io --net --int --sys --tcp --output ./dstat.csv
+```
+
+load csv into `dstat-graph` (column filter with `-f` if necessary)
+
+```
+$ dstat-graph --csv ./dstat.csv -o cpu.png -f usr,sys,idl,wai
+```
+
+see more [examples](https://github.com/octu0/dstat-graph/tree/master/examples).
 
 ## Build
 
