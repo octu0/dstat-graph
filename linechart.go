@@ -6,7 +6,7 @@ import(
   "time"
   "fmt"
 
-	"github.com/wcharczuk/go-chart"
+  "github.com/wcharczuk/go-chart"
 )
 
 type LineChart struct {
@@ -73,8 +73,8 @@ func (c *LineChart) Read(r io.Reader) error {
       Name: col,
       Style: chart.Style{
         Show: true,
-			  StrokeColor: color,
-			  FillColor:   color.WithAlpha(15),
+        StrokeColor: color,
+        FillColor:   color.WithAlpha(15),
       },
       XValues: xvalues,
       YValues: yvalues,
@@ -95,14 +95,14 @@ func (c *LineChart) Read(r io.Reader) error {
       },
     },
     XAxis: chart.XAxis{
-			Style:          chart.StyleShow(),
-			ValueFormatter: chart.TimeHourValueFormatter,
-			GridMajorStyle: chart.Style{
-				Show:        true,
-				StrokeColor: chart.ColorAlternateGray,
-				StrokeWidth: 1.0,
-			},
-			GridLines: c.interval(xvalues, 10),
+      Style:          chart.StyleShow(),
+      ValueFormatter: chart.TimeHourValueFormatter,
+      GridMajorStyle: chart.Style{
+        Show:        true,
+        StrokeColor: chart.ColorAlternateGray,
+        StrokeWidth: 1.0,
+      },
+      GridLines: c.interval(xvalues, 10),
     },
     Series: series,
   }
