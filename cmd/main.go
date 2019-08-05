@@ -9,7 +9,7 @@ import (
   "github.com/comail/colog"
   "gopkg.in/urfave/cli.v1"
 
-  "github.com/octu0/dstat-graph.go"
+  "github.com/octu0/dstat-graph"
 )
 
 var (
@@ -121,7 +121,7 @@ func main(){
     },
     cli.StringFlag{
       Name: "chart, t",
-      Usage: "chart-type `line` or `bar` (defaults: `line`)",
+      Usage: "chart-type 'line' or 'bar' (defaults: 'line')",
       Value: "line",
     },
     cli.IntFlag{
