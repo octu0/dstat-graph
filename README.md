@@ -4,6 +4,9 @@ generate png chart from dstat CSV file.
 data visualization using [go-chart](https://github.com/wcharczuk/go-chart)  
 (inspired by [dstat2graph](https://github.com/sh2/dstat2graphs))
 
+![cpu](https://github.com/octu0/dstat-graph/blob/master/examples/cpu.png?raw=true)  
+![net](https://github.com/octu0/dstat-graph/blob/master/examples/net.png?raw=true)  
+
 ## Usage
 
 output dstat csv using `dstat --output`
