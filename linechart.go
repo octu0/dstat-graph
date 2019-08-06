@@ -96,11 +96,20 @@ func (c *LineChart) Read(r io.Reader) error {
     },
     XAxis: chart.XAxis{
       Style:          chart.StyleShow(),
-      ValueFormatter: chart.TimeHourValueFormatter,
+      ValueFormatter: func(v interface{}) string {
+        format := "01-02 03:04:05"
+        if t, isTime := v.(time.Time); isTime {
+          return t.Format(format)
+        }
+        if t, isFloat := v.(float64); isFloat {
+          return time.Unix(0, int64(t)).Format(format)
+        }
+        return fmt.Sprintf("<unknown_axis>: %#v", v)
+      },
       GridMajorStyle: chart.Style{
         Show:        true,
         StrokeColor: chart.ColorAlternateGray,
-        StrokeWidth: 1.0,
+        StrokeWidth: 2.0,
       },
       GridLines: c.interval(xvalues, 10),
     },
