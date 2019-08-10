@@ -1,6 +1,6 @@
 "Dstat 0.7.3 CSV output"
-"Author:","Dag Wieers <dag@wieers.com>",,,,"URL:","http://dag.wieers.com/home-made/dstat/"
-"Host:","hatatest-mptcp-proxy02",,,,"User:","yusuke.hata"
+"Author:","Dag Wieers <dag@example.com>",,,,"URL:","http://dag.wieers.com/home-made/dstat/"
+"Host:","hatatest-02",,,,"User:","yusuke.hata"
 "Cmdline:","dstat -t --cpu --mem --disk --io --net --int --sys --tcp --output ./data_201908051443.csv",,,,"Date:","05 Aug 2019 14:43:43 UTC"
 "system","total cpu usage",,,,,"memory usage",,,,"dsk/total",,"io/total",,"net/total",,"interrupts",,,"system",,"tcp sockets",,,,
 "time","usr","sys","idl","wai","stl","used","free","buff","cach","read","writ","read","writ","recv","send","25","26","30","int","csw","lis","act","syn","tim","clo"
