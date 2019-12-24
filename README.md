@@ -23,6 +23,10 @@ $ dstat-graph --csv ./dstat.csv -o cpu.png -f usr,sys,idl,wai
 
 see more [examples](https://github.com/octu0/dstat-graph/tree/master/examples).
 
+## Download
+
+Linux amd64 / Darwin amd64 binaries are available in [Releases](https://github.com/octu0/dstat-graph/releases)
+
 ## Build
 
 Build requires Go version 1.11+ installed.

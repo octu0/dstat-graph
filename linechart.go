@@ -72,7 +72,6 @@ func (c *LineChart) Read(r io.Reader) error {
     series = append(series, chart.TimeSeries{
       Name: col,
       Style: chart.Style{
-        Show: true,
         StrokeColor: color,
         FillColor:   color.WithAlpha(15),
       },
@@ -89,13 +88,11 @@ func (c *LineChart) Read(r io.Reader) error {
       },
     },
     YAxis: chart.YAxis{
-      Style: chart.StyleShow(),
       ValueFormatter: func(v interface{}) string {
         return fmt.Sprintf("%3.2f", v.(float64))
       },
     },
     XAxis: chart.XAxis{
-      Style:          chart.StyleShow(),
       ValueFormatter: func(v interface{}) string {
         format := "01-02 03:04:05"
         if t, isTime := v.(time.Time); isTime {
@@ -107,7 +104,6 @@ func (c *LineChart) Read(r io.Reader) error {
         return fmt.Sprintf("<unknown_axis>: %#v", v)
       },
       GridMajorStyle: chart.Style{
-        Show:        true,
         StrokeColor: chart.ColorAlternateGray,
         StrokeWidth: 2.0,
       },
