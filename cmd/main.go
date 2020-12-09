@@ -12,20 +12,13 @@ import (
 	"github.com/octu0/dstat-graph"
 )
 
-var (
-	Commands = make([]cli.Command, 0)
-)
-
-func AddCommand(cmd cli.Command) {
-	Commands = append(Commands, cmd)
-}
-
 func action(c *cli.Context) error {
 	filename := c.String("csv")
 	if filename == "" {
 		log.Printf("error: requires dstat csv path(--help print usage)")
 		return nil
 	}
+
 	f, err := os.Open(filename)
 	if err != nil {
 		log.Printf("error: failed to open file: %s", filename)
@@ -43,6 +36,7 @@ func action(c *cli.Context) error {
 		defer os.Remove(tmpfile.Name())
 		outfile = tmpfile.Name()
 	}
+
 	out, err := os.OpenFile(outfile, os.O_RDWR|os.O_CREATE, 0655)
 	if err != nil {
 		log.Printf("error: failed to open tempfile: %s", err.Error())
@@ -52,10 +46,10 @@ func action(c *cli.Context) error {
 
 	filter := c.String("column")
 	columns := make([]string, 0)
-	if "" != filter {
+	if filter != "" {
 		for _, v := range strings.Split(filter, ",") {
 			v = strings.TrimSpace(v)
-			if "" != v {
+			if v != "" {
 				columns = append(columns, v)
 			}
 		}
@@ -103,7 +97,6 @@ func main() {
 	app.Email = ""
 	app.Usage = ""
 	app.Action = action
-	app.Commands = Commands
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "csv, i",
