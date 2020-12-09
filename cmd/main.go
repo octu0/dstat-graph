@@ -13,6 +13,13 @@ import (
 )
 
 func action(c *cli.Context) error {
+	if c.GlobalBool("debug") {
+		colog.SetMinLevel(colog.LDebug)
+		if c.GlobalBool("verbose") {
+			colog.SetMinLevel(colog.LTrace)
+		}
+	}
+
 	filename := c.String("csv")
 	if filename == "" {
 		log.Printf("error: requires dstat csv path(--help print usage)")
