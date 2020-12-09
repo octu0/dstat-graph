@@ -1,4 +1,9 @@
-# dstat-graph
+# `dstat-graph`
+
+[![MIT License](https://img.shields.io/github/license/octu0/dstat-graph)](https://github.com/octu0/dstat-graph/blob/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/octu0/dstat-graph?status.svg)](https://godoc.org/github.com/octu0/dstat-graph)
+[![Go Report Card](https://goreportcard.com/badge/github.com/octu0/dstat-graph)](https://goreportcard.com/report/github.com/octu0/dstat-graph)
+[![Releases](https://img.shields.io/github/v/release/octu0/dstat-graph)](https://github.com/octu0/dstat-graph/releases)
 
 generate png chart from dstat CSV file.  
 data visualization using [go-chart](https://github.com/wcharczuk/go-chart)  
@@ -11,13 +16,13 @@ data visualization using [go-chart](https://github.com/wcharczuk/go-chart)
 
 output dstat csv using `dstat --output`
 
-```
+```shell
 $ dstat -t --cpu --mem --disk --io --net --int --sys --tcp --output ./dstat.csv
 ```
 
 load csv into `dstat-graph` (column filter with `-f` if necessary)
 
-```
+```shell
 $ dstat-graph --csv ./dstat.csv -o cpu.png -f usr,sys,idl,wai
 ```
 
@@ -31,13 +36,13 @@ Linux amd64 / Darwin amd64 binaries are available in [Releases](https://github.c
 
 Build requires Go version 1.11+ installed.
 
-```
+```shell
 $ go version
 ```
 
 Run `make pkg` to Build and package for linux, darwin.
 
-```
+```shell
 $ git clone https://github.com/octu0/dstat-graph
 $ make pkg
 ```
