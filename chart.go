@@ -2,7 +2,6 @@ package graph
 
 import (
 	"io"
-	"os"
 	"time"
 
 	"github.com/wcharczuk/go-chart"
@@ -18,7 +17,7 @@ type DstatCSVRow struct {
 	Values DstatRecord
 }
 
-func RenderToFile(graph chart.Chart, f *os.File) error {
+func RenderToFile(graph chart.Chart, out io.Writer) error {
 	graph.Elements = []chart.Renderable{chart.LegendThin(&graph)}
-	return graph.Render(chart.PNG, f)
+	return graph.Render(chart.PNG, out)
 }
