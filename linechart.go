@@ -38,6 +38,9 @@ func (c *LineChart) Read(r io.Reader) (chart.Chart, error) {
 	if err != nil {
 		return chart.Chart{}, err
 	}
+	if len(rows) < 10 {
+		return chart.Chart{}, fmt.Errorf("more than 10 rows of data needed to render chart")
+	}
 
 	targetColumns := c.filterColumns
 	if len(c.filterColumns) < 1 {
@@ -73,6 +76,7 @@ func (c *LineChart) Read(r io.Reader) (chart.Chart, error) {
 		series = append(series, chart.TimeSeries{
 			Name: col,
 			Style: chart.Style{
+				Show:        true,
 				StrokeColor: color,
 				FillColor:   color.WithAlpha(15),
 			},
