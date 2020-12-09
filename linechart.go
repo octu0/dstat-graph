@@ -3,7 +3,6 @@ package graph
 import (
 	"fmt"
 	"io"
-	"os"
 	"time"
 
 	"github.com/wcharczuk/go-chart"
@@ -11,17 +10,16 @@ import (
 
 type LineChart struct {
 	filterColumns []string
-	graph         chart.Chart
 	width         int
 	height        int
 }
 
 func NewLineChart(columns []string, width, height int) *LineChart {
-	c := new(LineChart)
-	c.filterColumns = columns
-	c.width = width
-	c.height = height
-	return c
+	return &LineChart{
+		filterColumns: columns,
+		width:         width,
+		height:        height,
+	}
 }
 
 func (c *LineChart) interval(values []time.Time, interval int) []chart.GridLine {
@@ -34,23 +32,25 @@ func (c *LineChart) interval(values []time.Time, interval int) []chart.GridLine 
 	}
 	return t
 }
-func (c *LineChart) Read(r io.Reader) error {
+
+func (c *LineChart) Read(r io.Reader) (chart.Chart, error) {
 	columns, rows, err := Parse(r)
 	if err != nil {
-		return err
+		return chart.Chart{}, err
 	}
+
 	targetColumns := c.filterColumns
 	if len(c.filterColumns) < 1 {
 		targetColumns = columns
 	}
-	columnExists := make(map[string]bool)
+	columnExists := make(map[string]struct{})
 	for _, k := range columns {
-		columnExists[k] = true
+		columnExists[k] = struct{}{}
 	}
 
-	filterCols := make([]string, 0)
+	filterCols := make([]string, 0, len(columnExists))
 	for _, k := range targetColumns {
-		if columnExists[k] {
+		if _, ok := columnExists[k]; ok {
 			filterCols = append(filterCols, k)
 		}
 	}
@@ -59,6 +59,7 @@ func (c *LineChart) Read(r io.Reader) error {
 	for _, row := range rows {
 		xvalues = append(xvalues, row.Time)
 	}
+
 	series := make([]chart.Series, 0, len(filterCols))
 	for i, col := range filterCols {
 		yvalues := make([]float64, 0, len(rows))
@@ -79,7 +80,8 @@ func (c *LineChart) Read(r io.Reader) error {
 			YValues: yvalues,
 		})
 	}
-	c.graph = chart.Chart{
+
+	return chart.Chart{
 		Width:  c.width,
 		Height: c.height,
 		Background: chart.Style{
@@ -110,10 +112,5 @@ func (c *LineChart) Read(r io.Reader) error {
 			GridLines: c.interval(xvalues, 10),
 		},
 		Series: series,
-	}
-	return nil
-}
-func (c *LineChart) RenderToFile(f *os.File) error {
-	c.graph.Elements = []chart.Renderable{chart.LegendThin(&c.graph)}
-	return c.graph.Render(chart.PNG, f)
+	}, nil
 }

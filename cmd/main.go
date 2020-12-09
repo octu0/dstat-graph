@@ -69,14 +69,15 @@ func action(c *cli.Context) error {
 		return nil
 	}
 
-	if err := chart.Read(f); err != nil {
-		log.Printf("error: csv read error: %s", err.Error())
+	data, err := chart.Read(f)
+	if err != nil {
 		return err
 	}
-	if err := chart.RenderToFile(out); err != nil {
+	if err := graph.RenderToFile(data, out); err != nil {
 		log.Printf("error: render to file error: %s", err.Error())
 		return err
 	}
+
 	log.Printf("info: write to file: %s", outfile)
 	return nil
 }
